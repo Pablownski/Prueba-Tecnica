@@ -1,8 +1,26 @@
-CREATE TABLE products (
+CREATE TABLE IF NOT EXISTS products (
     id PRIMARY KEY,
     name TEXT NOT NULL,
     price REAL NOT NULL,
     category TEXT NOT NULL,
     source TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
+);
+
+
+CREATE TABLE IF NOT EXISTS carts (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+ 
+CREATE TABLE IF NOT EXISTS cart_items (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    cart_id     INTEGER NOT NULL,
+    product_id  INTEGER NOT NULL,
+    quantity    INTEGER NOT NULL DEFAULT 1 CHECK (quantity > 0),
+    added_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (cart_id)    REFERENCES carts(id)    ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+);
+ 
