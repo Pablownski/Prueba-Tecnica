@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from app.sync import sync_products
+from app.database import init_db
 from app.repository import (
     list_products,
     get_product_by_id
@@ -22,3 +23,4 @@ def get_product(product_id: int):
         return {"error": "Producto no encontrado"}
     return product
 
+init_db()
