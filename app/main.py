@@ -5,7 +5,7 @@ from app.repository import (
     get_product_by_id
 )
 
-app = FastAPI("Mini Catalog")
+app = FastAPI(title="Mini Catalog")
 
 @app.post("/sync")
 def sync():
